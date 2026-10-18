@@ -154,6 +154,7 @@
     const d = new Date();
     const time = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const name = NAMES[Math.round(t) % 4];
+    const pt = document.getElementById('phone-time'); if (pt) pt.textContent = d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: false });
     clock.textContent = following ? `${time} where you are · ${name} in Pixal` : `${name} in Pixal · ${season}`;
   };
   // The cabin below is rendered by the game in three lights; it takes the one nearest the sky's.

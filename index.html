@@ -35,12 +35,14 @@
       <p class="badge">Coming to iPhone</p>
     </div>
 
-    <figure class="window" aria-label="The village in Pixal, painted for the time of day">
+    <figure class="window phone" aria-label="Pixal on an iPhone, in the village, painted for the time of day">
       <div class="frame">
         <video data-tod="dawn" muted loop playsinline preload="auto" poster="/media/dawn.jpg"><source src="/media/dawn.mp4" type="video/mp4"></video>
         <video data-tod="day" muted loop playsinline preload="auto" poster="/media/day.jpg"><source src="/media/day.mp4" type="video/mp4"></video>
         <video data-tod="dusk" muted loop playsinline preload="auto" poster="/media/dusk.jpg"><source src="/media/dusk.mp4" type="video/mp4"></video>
         <video data-tod="night" muted loop playsinline preload="auto" poster="/media/night.jpg"><source src="/media/night.mp4" type="video/mp4"></video>
+        <div class="status" aria-hidden="true"><span id="phone-time">9:41</span><span class="island"></span><span class="bars">▮▮▮ ▭</span></div>
+        <div class="on-path" aria-hidden="true"><img src="/media/pixal-idle.png" alt=""><img src="/media/pixal-wave.png" alt=""></div>
       </div>
       <div class="dial">
         <input id="tod" type="range" min="0" max="400" step="1" value="100" aria-label="Time of day in Pixal">
