@@ -154,7 +154,7 @@
     const d = new Date();
     const time = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const name = NAMES[Math.round(t) % 4];
-    const pt = document.getElementById('phone-time'); if (pt) pt.textContent = d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: false });
+    document.querySelectorAll('.phone-time').forEach((el) => { el.textContent = d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: false }); });
     clock.textContent = following ? `${time} where you are · ${name} in Pixal` : `${name} in Pixal · ${season}`;
   };
   // The cabin below is rendered by the game in three lights; it takes the one nearest the sky's.
@@ -236,11 +236,15 @@
     cookBeats.forEach((x, k) => x.classList.toggle('on', k === beat));
   }, 1700);
 
+  // ---------- the screens fan out when they arrive ----------
+  const fan = document.querySelector('.fan');
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { fan.classList.add('open'); o.disconnect(); } }, { rootMargin: '0px 0px -25% 0px' }).observe(fan);
+
   // ---------- chapters ease in as they arrive ----------
   const reveal = new IntersectionObserver((entries) => {
     for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); }
   }, { rootMargin: '0px 0px -10% 0px' });
-  document.querySelectorAll('.chapter > *, .card, .company-card, .strip figure').forEach((el) => { el.classList.add('reveal'); reveal.observe(el); });
+  document.querySelectorAll('.chapter:not(.screens) > *, .screens > .eyebrow, .screens > h2, .wide-shot, .company-card, .strip figure').forEach((el) => { el.classList.add('reveal'); reveal.observe(el); });
 
   addEventListener('resize', () => { resize(); furnish(); });
   setDial(); resize(); showLoops(); describe(); lightHouse(); onScroll();

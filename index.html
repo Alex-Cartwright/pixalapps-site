@@ -20,7 +20,7 @@
 
   <header class="bar">
     <a class="brand" href="/">PIXAL APPS</a>
-    <nav><a href="#meet">Meet Pixal</a><a href="#home">The home</a><a href="#together">Together</a><a href="#company">Company</a><a href="/support/">Support</a></nav>
+    <nav><a href="#meet">Meet Pixal</a><a href="#home">The home</a><a href="#together">Together</a><a href="#screens">Screens</a><a href="#company">Company</a><a href="/support/">Support</a></nav>
   </header>
 
   <section class="hero" id="top">
@@ -35,14 +35,12 @@
       <p class="badge">Coming to iPhone</p>
     </div>
 
-    <figure class="window phone" aria-label="Pixal on an iPhone, in the village, painted for the time of day">
+    <figure class="window" aria-label="The village in Pixal, painted for the time of day">
       <div class="frame">
         <video data-tod="dawn" muted loop playsinline preload="auto" poster="/media/dawn.jpg"><source src="/media/dawn.mp4" type="video/mp4"></video>
         <video data-tod="day" muted loop playsinline preload="auto" poster="/media/day.jpg"><source src="/media/day.mp4" type="video/mp4"></video>
         <video data-tod="dusk" muted loop playsinline preload="auto" poster="/media/dusk.jpg"><source src="/media/dusk.mp4" type="video/mp4"></video>
         <video data-tod="night" muted loop playsinline preload="auto" poster="/media/night.jpg"><source src="/media/night.mp4" type="video/mp4"></video>
-        <div class="status" aria-hidden="true"><span id="phone-time">9:41</span><span class="island"></span><span class="bars">▮▮▮ ▭</span></div>
-        <div class="on-path" aria-hidden="true"><img src="/media/pixal-idle.png" alt=""><img src="/media/pixal-wave.png" alt=""></div>
       </div>
       <div class="dial">
         <input id="tod" type="range" min="0" max="400" step="1" value="100" aria-label="Time of day in Pixal">
@@ -59,15 +57,22 @@
         <p>Pixal is a small creature who lives in your phone and keeps you company. He has moods, a taste in food and music, and a favourite chair he chose himself. He cooks with you, tends the garden, reads, wanders off for the day and comes home with stories.</p>
         <p>He isn’t waiting for instructions. He gets on with his day whether or not you’re watching — and over weeks his hobbies level up, his opinions settle in, and the cabin starts to look like someone lives there.</p>
       </div>
-      <figure class="pal" aria-label="Pixal, cycling through things he does">
-        <div class="pal-stage">
-          <img src="/media/pixal-idle.png" alt="" class="on" data-say="pottering about">
-          <img src="/media/pixal-wave.png" alt="" data-say="saying hello">
-          <img src="/media/pixal-read.png" alt="" data-say="reading a good book">
-          <img src="/media/pixal-drink.png" alt="" data-say="having a cuppa">
-          <img src="/media/pixal-jump.png" alt="" data-say="delighted about something">
+      <figure class="pal" aria-label="Pixal on a phone, cycling through things he does">
+        <div class="device">
+          <div class="screen pal-screen">
+            <div class="status" aria-hidden="true"><span class="phone-time">9:41</span><span class="island"></span><span class="bars">▮▮▮</span></div>
+            <p class="pal-name">PIXAL</p>
+            <p class="pal-say" aria-live="polite">pottering about</p>
+            <div class="pal-stage">
+              <img src="/media/pixal-idle.png" alt="" class="on" data-say="pottering about">
+              <img src="/media/pixal-wave.png" alt="" data-say="saying hello">
+              <img src="/media/pixal-read.png" alt="" data-say="reading a good book">
+              <img src="/media/pixal-drink.png" alt="" data-say="having a cuppa">
+              <img src="/media/pixal-jump.png" alt="" data-say="delighted about something">
+            </div>
+            <div class="pal-ground" aria-hidden="true"></div>
+          </div>
         </div>
-        <figcaption class="pal-say" aria-live="polite">pottering about</figcaption>
       </figure>
     </section>
 
@@ -140,15 +145,16 @@
       </div>
     </section>
 
-    <section class="chapter" id="him">
-      <p class="eyebrow">04 · He works out what he likes</p>
-      <h2>Every time he settles somewhere, the moment is scored.</h2>
-      <div class="cards">
-        <article class="card"><span class="glyph" aria-hidden="true">♥</span><h3>Favourite places</h3><p>Was the fire lit? A record on? Rain at the glass? Each moment becomes a fondness for that chair or that desk, fading over a fortnight unless something keeps it alive.</p></article>
-        <article class="card"><span class="glyph" aria-hidden="true">☼</span><h3>On your clock</h3><p>Pixal runs on the real hour, season and weather. The sky behind this page is the game’s own, set to yours right now.</p></article>
-        <article class="card"><span class="glyph" aria-hidden="true">★</span><h3>Hobbies that grow</h3><p>Cooking, gardening, reading, music and more each level up with practice, unlocking new recipes, crops and pieces for the house.</p></article>
-        <article class="card"><span class="glyph" aria-hidden="true">✉</span><h3>Quests and gifts</h3><p>Finish a set or find every place and something arrives that the shop never sells, gift-wrapped on the path.</p></article>
+    <section class="chapter screens" id="screens">
+      <p class="eyebrow">04 · A closer look</p>
+      <h2>His life, on your phone.</h2>
+      <div class="fan">
+        <figure><div class="device"><img class="screen" src="/media/ui-hobbies.png" alt="The Hobbies screen: painting, cooking, music and reading, each with its own level" width="780" height="1688" loading="lazy"></div><figcaption><b>Hobbies</b> Six of them, practised on his own and levelling up.</figcaption></figure>
+        <figure><div class="device"><img class="screen" src="/media/ui-quests.png" alt="The Quests screen: a little menu, his first gallery, familiar stars and the Japanese lounge, with progress" width="780" height="1688" loading="lazy"></div><figcaption><b>Quests</b> What’s on his mind, and what you’ve finished together.</figcaption></figure>
+        <figure><div class="device"><img class="screen" src="/media/ui-hint.png" alt="A quest's help page: what to do next, what counts, and the sailor hat he'll be given" width="780" height="1688" loading="lazy"></div><figcaption><b>A little help</b> A hint from what you actually have, and the gift waiting at the end.</figcaption></figure>
+        <figure><div class="device"><img class="screen" src="/media/ui-build.png" alt="Build mode: the workshop under the house, with a room, a roof and a garden to add" width="780" height="1700" loading="lazy"></div><figcaption><b>Build</b> Add rooms, a roof, a garden — the builders come overnight.</figcaption></figure>
       </div>
+      <figure class="wide-shot"><div class="device sideways"><img class="screen" src="/media/ui-recipes.png" alt="The recipe book on its side: a taste chart of known dishes beside his cravings" width="1948" height="916" loading="lazy"></div><figcaption><b>The recipe book, sideways</b> Every dish he’s recognised, plotted on a taste chart — and the cravings he hasn’t named yet.</figcaption></figure>
     </section>
 
     <section class="chapter strip-chapter">

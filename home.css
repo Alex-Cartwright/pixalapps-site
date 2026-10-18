@@ -26,7 +26,7 @@ a { color: inherit; }
 #sky { position: fixed; inset: 0; width: 100vw; height: 100lvh; image-rendering: pixelated; z-index: -1; }
 
 /* A pixel border: hard steps, no radius. */
-.px-border, .frame, .card, .company-card, .slide-pic, .strip figure, .badge, .carousel-nav button {
+.px-border, .frame, .company-card, .slide-pic, .strip figure, .badge, .carousel-nav button {
   box-shadow:
     0 calc(-1 * var(--px)) 0 0 currentColor, 0 var(--px) 0 0 currentColor,
     calc(-1 * var(--px)) 0 0 0 currentColor, var(--px) 0 0 0 currentColor;
@@ -169,12 +169,9 @@ h3 { font-family: Silkscreen, monospace; font-size: 16px; letter-spacing: 1px; m
 .meet { display: grid; grid-template-columns: 1.2fr .8fr; gap: 60px; align-items: center; }
 .meet-copy p { font-size: 25px; margin: 0 0 18px; max-width: 34ch; }
 .pal { margin: 0; justify-self: center; text-align: center; }
-.pal-stage { position: relative; width: min(360px, 70vw); aspect-ratio: 240 / 200; }
 .pal-stage img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; opacity: 0; }
 .pal-stage img.on { opacity: 1; animation: bob 1.2s steps(2) infinite; }
 @keyframes bob { 50% { transform: translateY(-6px); } }
-.pal-say { margin-top: 14px; font: 700 13px Silkscreen, monospace; letter-spacing: 1px; color: var(--brown); }
-.pal-say::before { content: "▸ "; }
 
 /* ---------- things you do together: a carousel ---------- */
 .together { background: var(--paper-deep); padding: 100px 0 80px; }
@@ -227,24 +224,48 @@ h3 { font-family: Silkscreen, monospace; font-size: 16px; letter-spacing: 1px; m
 @media (max-width: 860px) { .hello { width: 84px; } .bubble { font-size: 10px; } }
 @media (prefers-reduced-motion: reduce) { .hello-pal img:last-child, .bubble { animation: none; } .hello-pal img:last-child { opacity: 0; } }
 
-/* ---------- the hero's window is a phone, with Pixal in it ---------- */
-.phone .frame {
-  border-radius: 46px; border: 12px solid #16161d; background: #000;
-  box-shadow: 0 0 0 2px #3a3a46, 0 0 0 5px #16161d, 18px 22px 0 4px rgba(0, 0, 0, .22);
-}
-.phone { position: relative; }
-.phone::before, .phone::after {   /* the side buttons */
-  content: ""; position: absolute; width: 5px; background: #2b2b35; border-radius: 2px; z-index: 5;
-}
-.phone::before { left: -19px; top: 15%; height: 7%; box-shadow: 0 calc(var(--px) * 13) 0 #2b2b35; }
-.phone::after { right: -19px; top: 20%; height: 11%; }
-.phone .frame video { border-radius: 34px; }
-.status { position: absolute; top: 0; left: 0; right: 0; height: 9%; z-index: 4; display: flex; align-items: center; justify-content: space-between;
-  padding: 0 9% 0 10%; color: #fff; font: 700 11px Silkscreen, monospace; letter-spacing: .5px; text-shadow: 0 1px 0 rgba(0,0,0,.35); pointer-events: none; }
-.island { position: absolute; left: 50%; top: 22%; width: 31%; height: 42%; transform: translateX(-50%); background: #000; border-radius: 20px; }
+/* ---------- a phone: Pixal in Meet Pixal, and the real screens ---------- */
+.device { position: relative; width: 100%; aspect-ratio: 780 / 1688; border-radius: 13% / 6%; border: 10px solid #16161d; background: #000;
+  box-shadow: 0 0 0 2px #3a3a46, 14px 18px 0 0 rgba(42, 31, 26, .18); }
+.device::before, .device::after { content: ""; position: absolute; width: 4px; background: #2b2b35; border-radius: 2px; }
+.device::before { left: -16px; top: 17%; height: 7%; box-shadow: 0 30px 0 #2b2b35; }
+.device::after { right: -16px; top: 22%; height: 11%; }
+.device .screen { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 10% / 4.6%; object-fit: cover; object-position: top; overflow: hidden; }
+.device.sideways { aspect-ratio: 1948 / 916; border-radius: 6% / 13%; }
+.device.sideways .screen { border-radius: 4.6% / 10%; }
+.device.sideways::before { left: 22%; top: -16px; width: 7%; height: 4px; box-shadow: none; }
+.device.sideways::after { display: none; }
+.status { position: absolute; top: 0; left: 0; right: 0; height: 7%; z-index: 4; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 11% 0 12%; color: #2a1f1a; font: 700 11px Silkscreen, monospace; letter-spacing: .5px; }
+.island { position: absolute; left: 50%; top: 22%; width: 32%; height: 48%; transform: translateX(-50%); background: #000; border-radius: 20px; }
 .bars { font-size: 9px; letter-spacing: 1px; }
-.on-path { position: absolute; z-index: 3; left: 41%; top: 54%; width: 20%; aspect-ratio: 240 / 200; pointer-events: none; }
-.on-path img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
-.on-path img:last-child { animation: wave 1.6s steps(1) infinite; }
-.on-path::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 2%; height: 9%; background: rgba(0, 0, 0, .28); border-radius: 50%; z-index: -1; }
-@media (prefers-reduced-motion: reduce) { .on-path img:last-child { animation: none; opacity: 0; } }
+
+/* Pixal's own screen, in the game's colours: sky bands over the paper, a patch of lawn */
+.pal { width: min(320px, 74vw); }
+.pal-screen { background: linear-gradient(#a6dcf0 0 18%, #b6e3ef 18% 30%, #cfe7e4 30% 44%, #f1e6cf 44% 70%, #f6d9bd 70%); }
+.pal-name { position: absolute; top: 11%; left: 0; right: 0; margin: 0; text-align: center; font: 700 28px Silkscreen, monospace; letter-spacing: 4px; color: #2a1f1a; }
+.pal-say { position: absolute; top: 18.5%; left: 0; right: 0; margin: 0; text-align: center; font: 12px Silkscreen, monospace; letter-spacing: 1px; color: #714c37; }
+.pal-stage { position: absolute; left: 8%; right: 8%; top: 41%; aspect-ratio: 240 / 200; }
+.pal-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 30%; background:
+  repeating-linear-gradient(90deg, #6fae4f 0 12px, #79b957 12px 24px); box-shadow: inset 0 8px 0 #5c9a42; }
+
+/* ---------- a closer look: the screens fan out as they arrive ---------- */
+.fan { display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px; align-items: start; perspective: 1200px; }
+.fan figure, .wide-shot { margin: 0; }
+.fan figcaption, .wide-shot figcaption { margin-top: 22px; font-size: 21px; line-height: 1.2; }
+.fan figcaption b, .wide-shot figcaption b { display: block; font: 700 12px Silkscreen, monospace; letter-spacing: 1px; margin-bottom: 6px; }
+.fan figure { transition: transform .8s steps(8), opacity .8s steps(8); }
+.fan:not(.open) figure { opacity: 0; }
+.fan:not(.open) figure:nth-child(1) { transform: translateX(110%) rotate(-6deg); }
+.fan:not(.open) figure:nth-child(2) { transform: translateX(40%) rotate(-2deg); }
+.fan:not(.open) figure:nth-child(3) { transform: translateX(-40%) rotate(2deg); }
+.fan:not(.open) figure:nth-child(4) { transform: translateX(-110%) rotate(6deg); }
+.fan.open figure:nth-child(odd) { transform: translateY(18px); }
+.wide-shot { max-width: 760px; margin: 70px auto 0; }
+@media (max-width: 860px) {
+  .fan { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 62vw; overflow-x: auto; scroll-snap-type: x mandatory; padding: 8px 20px 20px; margin: 0 -20px; }
+  .fan figure { scroll-snap-align: center; opacity: 1 !important; transform: none !important; }
+  .device { border-width: 7px; }
+  .pal-name { font-size: 22px; }
+}
+@media (prefers-reduced-motion: reduce) { .fan figure { opacity: 1 !important; transform: none !important; transition: none; } }
