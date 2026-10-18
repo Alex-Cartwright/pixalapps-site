@@ -89,3 +89,14 @@ dl.details dd { margin: 0; }
   dl.details { grid-template-columns: 1fr; gap: 2px; }
   dl.details dd { margin-bottom: 10px; }
 }
+
+/* --- app-first homepage --- */
+.quiet { color: var(--muted); font-style: italic; }
+section.company {
+  margin-top: 64px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+section.company h2 { font-size: 17px; }
+section.company p { font-size: 15px; color: var(--muted); }
+section.company p a { color: var(--link); }
