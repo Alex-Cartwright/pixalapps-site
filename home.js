@@ -156,7 +156,15 @@
     const name = NAMES[Math.round(t) % 4];
     clock.textContent = following ? `${time} where you are · ${name} in Pixal` : `${name} in Pixal · ${season}`;
   };
-  const apply = () => { draw(); showLoops(); describe(); };
+  // The cabin below is rendered by the game in three lights; it takes the one nearest the sky's.
+  const houseImgs = [...document.querySelectorAll('.pano-track img')];
+  let houseLight = '';
+  const lightHouse = () => {
+    const light = t >= 2.5 && t < 3.5 ? 'night' : t >= 0.6 && t < 1.6 ? 'day' : 'dusk';
+    if (light === houseLight) return; houseLight = light;
+    houseImgs.forEach((img) => { img.src = `/media/house-${img.classList.contains('full') ? 'home' : 'bare'}-${light}.png`; });
+  };
+  const apply = () => { draw(); showLoops(); describe(); lightHouse(); };
   dial.max = 300;
   dial.addEventListener('input', () => { following = false; now.hidden = false; t = dial.value / 100; apply(); });
   now.addEventListener('click', () => { following = true; now.hidden = true; t = tOfClock(); setDial(); apply(); });
@@ -164,7 +172,26 @@
 
   // ---------- the bar goes solid once past the hero ----------
   const bar = document.querySelector('.bar');
-  const onScroll = () => bar.classList.toggle('solid', scrollY > innerHeight * 0.75);
+  // ---------- the home: pinned while the cabin pans past, furnishing itself behind the wipe ----------
+  const home = document.getElementById('home'), pano = home.querySelector('.pano'), track = home.querySelector('.pano-track');
+  const rooms = [...home.querySelectorAll('.rooms li')];
+  const ease = (x) => x * x * (3 - 2 * x);
+  const furnish = () => {
+    const r = home.getBoundingClientRect(), total = home.offsetHeight - innerHeight;
+    const p = Math.min(1, Math.max(0, -r.top / Math.max(1, total)));
+    const trackW = track.offsetWidth, viewW = pano.clientWidth, maxShift = Math.max(0, trackW - viewW);
+    const pan = ease(Math.min(1, p / 0.88));
+    const shift = maxShift * pan;
+    const lead = viewW * 0.62 * Math.min(1, p / 0.06);
+    const reveal = p >= 0.92 ? 1 : Math.min(1, (shift + lead) / trackW);
+    track.style.transform = `translateX(${-shift}px)`;
+    track.style.setProperty('--reveal', `${(reveal * 100).toFixed(2)}%`);
+    track.style.setProperty('--wipe-on', reveal > 0.002 && reveal < 1 ? 1 : 0);
+    let now = 0;
+    rooms.forEach((li, k) => { const on = reveal >= Number(li.dataset.at) && (k > 0 || reveal > 0.01); li.classList.toggle('on', on); if (on) now = k; });
+    rooms.forEach((li, k) => li.classList.toggle('now', k === now));
+  };
+  const onScroll = () => { bar.classList.toggle('solid', scrollY > innerHeight * 0.75); furnish(); };
   addEventListener('scroll', onScroll, { passive: true });
 
   // ---------- the cooking story ----------
@@ -197,7 +224,7 @@
   }, { rootMargin: '0px 0px -10% 0px' });
   document.querySelectorAll('.chapter > *, .card, .company-card, .strip figure').forEach((el) => { el.classList.add('reveal'); reveal.observe(el); });
 
-  addEventListener('resize', resize);
+  addEventListener('resize', () => { resize(); furnish(); });
   if (!following) now.hidden = false;
-  setDial(); resize(); showLoops(); describe(); onScroll();
+  setDial(); resize(); showLoops(); describe(); lightHouse(); onScroll();
 })();

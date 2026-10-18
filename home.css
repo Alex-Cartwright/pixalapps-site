@@ -163,3 +163,30 @@ h3 { font-family: Silkscreen, monospace; font-size: 16px; letter-spacing: 1px; m
   .reveal { opacity: 1; transform: none; transition: none; }
   .stage-frame img { transition: opacity .2s; transform: none !important; }
 }
+
+/* ---------- the home: the cabin pans past and furnishes itself as you scroll ---------- */
+.home { position: relative; height: 420vh; background: var(--paper); }
+.home-pin { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: 26px; padding: 70px 0 30px; overflow: hidden; }
+.home-head { padding: 0 max(24px, 6vw); }
+.home-head h2 { margin-bottom: 0; }
+.pano { position: relative; height: clamp(180px, 46vh, 520px); overflow: hidden; background: #1d213c; }
+.pano-track { position: absolute; top: 0; left: 0; height: 100%; aspect-ratio: 3400 / 524; will-change: transform; }
+.pano-track img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; max-width: none; }
+.pano-track .full { clip-path: inset(0 calc(100% - var(--reveal, 0%)) 0 0); }
+.wipe { position: absolute; top: 0; bottom: 0; left: var(--reveal, 0%); width: 6px; margin-left: -3px;
+  background: repeating-linear-gradient(180deg, #fff8ec 0 8px, transparent 8px 14px); opacity: var(--wipe-on, 1); transition: opacity .3s steps(3); }
+.rooms { list-style: none; margin: 0; padding: 0 max(24px, 6vw); display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; font-size: 20px; line-height: 1.15; }
+.rooms li { opacity: .22; transition: opacity .4s steps(4), transform .4s steps(4); transform: translateY(8px); }
+.rooms li.on { opacity: 1; transform: none; }
+.rooms b { display: block; font: 700 11px Silkscreen, monospace; letter-spacing: 1px; margin-bottom: 6px; }
+.home-foot { margin: 0; padding: 0 max(24px, 6vw); color: var(--brown-soft); font-size: 20px; max-width: 70ch; }
+@media (max-width: 860px) {
+  .home { height: 480vh; }
+  .home-pin { gap: 18px; padding-top: 64px; }
+  .pano { height: 34vh; }
+  .rooms { grid-template-columns: 1fr; gap: 0; position: relative; min-height: 4.6em; }
+  .rooms li, .rooms li.on { position: absolute; left: max(24px, 6vw); right: max(24px, 6vw); opacity: 0; }
+  .rooms li.now { opacity: 1; transform: none; }
+  .home-foot { font-size: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .home { height: auto; } .home-pin { position: static; height: auto; } }
