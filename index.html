@@ -20,14 +20,18 @@
 
   <header class="bar">
     <a class="brand" href="/">PIXAL APPS</a>
-    <nav><a href="#home">The home</a><a href="#meet">Meet Pixal</a><a href="#together">Together</a><a href="#company">Company</a><a href="/support/">Support</a></nav>
+    <nav><a href="#meet">Meet Pixal</a><a href="#home">The home</a><a href="#together">Together</a><a href="#company">Company</a><a href="/support/">Support</a></nav>
   </header>
 
   <section class="hero" id="top">
     <div class="hero-copy">
       <p class="kicker" id="clock">&nbsp;</p>
+      <a class="hello" href="#meet" aria-label="Meet Pixal">
+        <span class="bubble">hello!</span>
+        <span class="hello-pal"><img src="/media/pixal-idle.png" alt="" width="240" height="200"><img src="/media/pixal-wave.png" alt="" width="240" height="200"></span>
+      </a>
       <h1>PIXAL</h1>
-      <p class="lede">A little creature shares a cabin with you. He lives on your clock, your weather and the music you’re playing — and gets on with his day whether or not you’re watching.</p>
+      <p class="lede">This is Pixal, your pixel pal. He shares a cabin with you, lives on your clock, your weather and the music you’re playing — and gets on with his day whether or not you’re watching.</p>
       <p class="badge">Coming to iPhone</p>
     </div>
 
@@ -46,10 +50,29 @@
   </section>
 
   <main>
+    <section class="chapter meet" id="meet">
+      <div class="meet-copy">
+        <p class="eyebrow">01 · Meet Pixal</p>
+        <h2>Your pixel pal, growing up alongside you.</h2>
+        <p>Pixal is a small creature who lives in your phone and keeps you company. He has moods, a taste in food and music, and a favourite chair he chose himself. He cooks with you, tends the garden, reads, wanders off for the day and comes home with stories.</p>
+        <p>He isn’t waiting for instructions. He gets on with his day whether or not you’re watching — and over weeks his hobbies level up, his opinions settle in, and the cabin starts to look like someone lives there.</p>
+      </div>
+      <figure class="pal" aria-label="Pixal, cycling through things he does">
+        <div class="pal-stage">
+          <img src="/media/pixal-idle.png" alt="" class="on" data-say="pottering about">
+          <img src="/media/pixal-wave.png" alt="" data-say="saying hello">
+          <img src="/media/pixal-read.png" alt="" data-say="reading a good book">
+          <img src="/media/pixal-drink.png" alt="" data-say="having a cuppa">
+          <img src="/media/pixal-jump.png" alt="" data-say="delighted about something">
+        </div>
+        <figcaption class="pal-say" aria-live="polite">pottering about</figcaption>
+      </figure>
+    </section>
+
     <section class="home" id="home" aria-labelledby="home-title">
       <div class="home-pin">
         <div class="home-head">
-          <p class="eyebrow">01 · Make it home</p>
+          <p class="eyebrow">02 · Make it home</p>
           <h2 id="home-title">Start with an empty cabin. Make it his.</h2>
         </div>
         <div class="pano" role="img" aria-label="The cabin in cross-section, from the back garden through the kitchen, bedroom and lounge to the front garden, furnishing itself as you scroll">
@@ -73,25 +96,6 @@
         </ol>
         <p class="home-foot">Every piece here is drawn by the game itself — sets from a Japanese lounge to mid-century modern, bought with coins he earns and placed wherever you like.</p>
       </div>
-    </section>
-
-    <section class="chapter meet" id="meet">
-      <div class="meet-copy">
-        <p class="eyebrow">02 · Meet Pixal</p>
-        <h2>Your pixel pal, growing up alongside you.</h2>
-        <p>Pixal is a small creature who lives in your phone and keeps you company. He has moods, a taste in food and music, and a favourite chair he chose himself. He cooks with you, tends the garden, reads, wanders off for the day and comes home with stories.</p>
-        <p>He isn’t waiting for instructions. He gets on with his day whether or not you’re watching — and over weeks his hobbies level up, his opinions settle in, and the cabin starts to look like someone lives there.</p>
-      </div>
-      <figure class="pal" aria-label="Pixal, cycling through things he does">
-        <div class="pal-stage">
-          <img src="/media/pixal-idle.png" alt="" class="on" data-say="pottering about">
-          <img src="/media/pixal-wave.png" alt="" data-say="saying hello">
-          <img src="/media/pixal-read.png" alt="" data-say="reading a good book">
-          <img src="/media/pixal-drink.png" alt="" data-say="having a cuppa">
-          <img src="/media/pixal-jump.png" alt="" data-say="delighted about something">
-        </div>
-        <figcaption class="pal-say" aria-live="polite">pottering about</figcaption>
-      </figure>
     </section>
 
     <section class="together" id="together" aria-labelledby="together-title">

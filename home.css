@@ -211,3 +211,18 @@ h3 { font-family: Silkscreen, monospace; font-size: 16px; letter-spacing: 1px; m
   .slide-copy h3 { font-size: 22px; margin-bottom: 8px; }
   .slide-copy p { font-size: 20px; }
 }
+
+/* ---------- he says hello in the hero ---------- */
+.hello { position: relative; display: block; width: clamp(96px, 8vw, 132px); text-decoration: none; margin: 0 0 6px 4px; }
+.hello-pal { position: relative; display: block; aspect-ratio: 240 / 200; }
+.hello-pal img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+.hello-pal img:last-child { animation: wave 1.6s steps(1) infinite; }
+@keyframes wave { 0%, 45% { opacity: 0; } 50%, 95% { opacity: 1; } }
+.bubble { position: absolute; left: 104%; bottom: 58%; white-space: nowrap; padding: 6px 10px; background: #fff8ec; color: #2a1f1a;
+  font: 700 12px Silkscreen, monospace; letter-spacing: 1px; box-shadow: 0 0 0 3px #2a1f1a; animation: pop 3.2s steps(1) infinite; }
+.bubble::after { content: ""; position: absolute; left: 8px; top: 100%; width: 9px; height: 9px; background: #2a1f1a;
+  clip-path: polygon(0 0, 100% 0, 0 100%); margin-top: 3px; }
+.bubble::after { left: -12px; top: auto; bottom: 4px; clip-path: polygon(100% 0, 100% 100%, 0 100%); margin: 0; }
+@keyframes pop { 0%, 8% { opacity: 0; transform: translateY(4px); } 10%, 85% { opacity: 1; transform: none; } 87%, 100% { opacity: 0; } }
+@media (max-width: 860px) { .hello { width: 84px; } .bubble { font-size: 10px; } }
+@media (prefers-reduced-motion: reduce) { .hello-pal img:last-child, .bubble { animation: none; } .hello-pal img:last-child { opacity: 0; } }
