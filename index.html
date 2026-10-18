@@ -2,119 +2,125 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pixal — a quiet game about keeping someone company</title>
-  <meta name="description" content="Pixal is a pixel-art game for iPhone. You share a cabin with a small creature that lives on real time, real weather and the music you're actually playing.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pixal — a little world that keeps your time</title>
+  <meta name="description" content="Pixal is a pixel-art game for iPhone by PIXAL APPS LTD. A small creature shares a cabin with you, on your real clock, your real weather and the music you're actually playing.">
   <meta property="og:title" content="Pixal">
-  <meta property="og:description" content="A quiet pixel-art game for iPhone. A cabin, a creature with opinions, and a world that runs on real time and weather.">
-  <meta property="og:image" content="https://pixalapps.com/img/outing.jpg">
+  <meta property="og:description" content="A quiet pixel-art game for iPhone. A cabin, a creature with opinions, and a world that keeps your time.">
+  <meta property="og:image" content="https://pixalapps.com/media/dusk.jpg">
   <meta property="og:url" content="https://pixalapps.com/">
-  <meta name="theme-color" content="#ffffff">
-  <link rel="stylesheet" href="/style.css">
+  <meta name="theme-color" content="#12152d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/home.css">
 </head>
 <body>
-  <main>
-    <header><a href="/">Pixal Apps</a></header>
+  <canvas id="sky" aria-hidden="true"></canvas>
 
-    <h1>Pixal</h1>
-    <p class="lede">A quiet pixel-art game for iPhone. You share a cabin with a small creature. There is nothing to win and nothing to lose — it potters about, forms opinions, and gets on with its day whether or not you are watching.</p>
-    <p class="muted sub">In development</p>
+  <header class="bar">
+    <a class="brand" href="/">PIXAL APPS</a>
+    <nav><a href="#world">The world</a><a href="#cooking">Cooking</a><a href="#company">Company</a><a href="/support/">Support</a></nav>
+  </header>
 
-    <figure>
-      <img src="/img/home.png" alt="Pixal at night: a pixel-art creature in a wooden cabin, with a list of things to do together below." width="603" height="1311" loading="lazy">
-      <figcaption>Late evening in the cabin. The room's light, the sky through the window and what he's doing are all computed for the hour, the season and the weather outside.</figcaption>
+  <section class="hero" id="top">
+    <div class="hero-copy">
+      <p class="kicker" id="clock">&nbsp;</p>
+      <h1>PIXAL</h1>
+      <p class="lede">A little creature shares a cabin with you. He lives on your clock, your weather and the music you’re playing — and gets on with his day whether or not you’re watching.</p>
+      <p class="badge">Coming to iPhone</p>
+    </div>
+
+    <figure class="window" aria-label="The village in Pixal, painted for the time of day">
+      <div class="frame">
+        <video data-tod="dawn" muted loop playsinline preload="auto" poster="/media/dawn.jpg"><source src="/media/dawn.mp4" type="video/mp4"></video>
+        <video data-tod="day" muted loop playsinline preload="auto" poster="/media/day.jpg"><source src="/media/day.mp4" type="video/mp4"></video>
+        <video data-tod="dusk" muted loop playsinline preload="auto" poster="/media/dusk.jpg"><source src="/media/dusk.mp4" type="video/mp4"></video>
+        <video data-tod="night" muted loop playsinline preload="auto" poster="/media/night.jpg"><source src="/media/night.mp4" type="video/mp4"></video>
+      </div>
+      <div class="dial">
+        <input id="tod" type="range" min="0" max="400" step="1" value="100" aria-label="Time of day in Pixal">
+        <div class="dial-labels" aria-hidden="true"><span>dawn</span><span>day</span><span>dusk</span><span>night</span></div>
+        <button id="now" type="button" hidden>Back to now</button>
+      </div>
+      <figcaption>Drag the sun. One painting, four lights — Pixal picks the one for your hour.</figcaption>
     </figure>
+  </section>
 
-    <section>
-      <h2>It listens to what you're playing</h2>
-      <p>Put music on — anything, in any app — and he notices. Pixal checks whether something else is playing every few seconds while it's open, so he's never more than about five seconds behind your thumb.</p>
-      <p><strong>What he does about it is up to him.</strong> He doesn't dance on cue. When music starts he decides whether to join: a roll against a chance built out of his mood, the hour, and what he's in the middle of. Being well rested makes him likelier. An hour he's fond of makes him likelier still. Catching him mid-task at a piece of furniture makes him much less likely. If he passes, he carries on pottering and quietly reconsiders every ten minutes or so — a few times, then he lets it go.</p>
-      <p>When he does join and he owns the gear, he goes and fetches a record first. The design note in the source puts it better than a feature list can: <em>he is a pet, not a mirror — taste, mood and the hour decide it, and your streaks never do.</em></p>
+  <main>
+    <section class="chapter" id="world">
+      <p class="eyebrow">01 · A world that keeps its own time</p>
+      <h2>Dawn, day, dusk and night are different places to be.</h2>
+      <div class="cols">
+        <p>The sky above this page is the game’s own: nine flat colours in dithered bands, swapped for the hour and the season. Pixal reads the real clock and the real weather, so a rainy Tuesday evening looks like one.</p>
+        <p>Lamps and the hearth are drawn as stacks of hard-edged discs, seven bands each, stepping along the pixel grid. No soft gradients anywhere. The banding is the point.</p>
+      </div>
     </section>
 
-    <section>
-      <h2>A world that keeps its own time</h2>
-      <p>The world runs on the real clock and the real season. Dawn, day, dusk and night are genuinely different places to be, and spring, summer, autumn and winter change both what you see and what there is to do.</p>
-
-      <h3>The sky is built, not painted</h3>
-      <p>The sky is nine flat colours arranged as dithered horizontal bands. The structure stays; the nine colours are swapped for the conditions of the moment. Dawn, dusk and night are fixed moods. Daytime belongs to the season. Weather then washes over whichever palette was chosen — clear, cloud, rain, wind, fog and snow tint the sky rather than replacing it.</p>
-
-      <h3>The ground is generated as you reach it</h3>
-      <p>The trail is produced a column at a time as the world comes into view — scrub, dirt, dressing and fringe, every ink keyed to the sky's palette so the ground always belongs to the weather above it. It doesn't loop, and it doesn't repeat.</p>
-
-      <figure>
-        <img src="/img/world.jpg" alt="A generated Pixal landscape: banded pixel-art sky, distant hills, treeline and a dirt trail on a clear summer day." width="1000" height="1098" loading="lazy">
-        <figcaption>A stretch of generated ground and sky on a clear summer day.</figcaption>
-      </figure>
-
-      <h3>Light you can see the edges of</h3>
-      <p>Every frame, the lighting is drawn into its own layer: the ambient light for the time of day, dimmed by whatever grey the weather has brought, and then each lamp and the hearth as a stack of hard-edged discs. That layer can only darken the scene, so lit things get a second pass to bloom back through it. There are no soft gradients anywhere — seven banded discs per light, every edge stepping along the pixel grid. The banding is the point, not a limitation.</p>
-      <p class="muted">Pixal is built with React Native, Expo and Skia, with a pixel-art renderer written for this game rather than an off-the-shelf engine.</p>
+    <section class="story" id="cooking">
+      <div class="story-stage" aria-hidden="true">
+        <div class="stage-frame">
+          <img src="/media/cook-prep.jpg" alt="" class="on">
+          <img src="/media/cook-toss.jpg" alt="">
+          <img src="/media/cook-sizzle.jpg" alt="">
+          <img src="/media/cook-reveal.jpg" alt="">
+          <div class="sparks"></div>
+        </div>
+        <ol class="ticks"><li class="on"></li><li></li><li></li><li></li></ol>
+      </div>
+      <div class="story-steps">
+        <p class="eyebrow">02 · Cooking together</p>
+        <article class="step" data-step="0"><h3>Prep</h3><p>You cook from what’s actually in the larder. Three ingredients, one pan, and a creature who has opinions about all of it.</p></article>
+        <article class="step" data-step="1"><h3>Toss</h3><p>The first time he makes something new, the kitchen becomes a little scene — a bold frame, a push in, a held pose before the hit.</p></article>
+        <article class="step" data-step="2"><h3>Sizzle</h3><p>Steam, sparks and a worried face. Dishes aren’t a list handed to you: a recipe gets its name only once he recognises it.</p></article>
+        <article class="step" data-step="3"><h3>Reveal</h3><p>Then the payoff, and a page in the recipe book he writes himself. His palate becomes a taste map you can actually look at.</p></article>
+      </div>
     </section>
 
-    <section>
-      <h2>He works out what he likes</h2>
-      <p>He is not waiting for instructions. He wanders, settles, naps, eats, takes an interest in things and has his own opinion about where to be.</p>
-      <p><strong>Every time he settles somewhere, the moment is scored.</strong> Was the fire lit? Was there a record on? Was there rain at the glass? Had you just said hello? Was he full? That score is learned into a fondness for that particular piece of furniture, and the fondness feeds straight back into how he chooses where to go next — so a chair he loves genuinely pulls him across the room.</p>
-      <p>Opinions can be negative as well as positive, and they fade if nothing keeps them alive — the memory has a half-life of about a fortnight. Over a week or two the room stops being interchangeable props and becomes his: the armchair by the fire, the desk by the window, the bed he never much liked.</p>
-
-      <figure>
-        <img src="/img/furniture.jpg" alt="A furniture card in Pixal reading: the bed — the only piece that exists at night — he goes up when you put the phone down." width="603" height="975" loading="lazy">
-        <figcaption>Tap anything in the room to see what it is and what he does with it. Pieces can be moved, rearranged or sold on.</figcaption>
-      </figure>
+    <section class="chapter" id="him">
+      <p class="eyebrow">03 · He works out what he likes</p>
+      <h2>Every time he settles somewhere, the moment is scored.</h2>
+      <div class="cards">
+        <article class="card"><span class="glyph" aria-hidden="true">♪</span><h3>He hears your music</h3><p>Put something on in any app and he notices within seconds. Whether he joins in is up to him — his mood, the hour and what he’s busy with decide it. He’s a pet, not a mirror.</p></article>
+        <article class="card"><span class="glyph" aria-hidden="true">♥</span><h3>Favourite places</h3><p>Was the fire lit? A record on? Rain at the glass? Each moment becomes a fondness for that chair or that desk, fading over a fortnight unless something keeps it alive.</p></article>
+        <article class="card"><span class="glyph" aria-hidden="true">✿</span><h3>A garden through the year</h3><p>Beds by the front door, crops that only take in their own season, and a frost that will claim whatever’s still in the ground.</p></article>
+        <article class="card"><span class="glyph" aria-hidden="true">➶</span><h3>Days out</h3><p>He takes himself off along named routes and comes home with what he found — and sometimes, instead of a thing, a whole new place.</p></article>
+      </div>
     </section>
 
-    <section>
-      <h2>Keeping house</h2>
-
-      <h3>Cooking, and a book he writes himself</h3>
-      <p>You cook together from what's actually in the larder. Dishes aren't a list handed to you at the start — the recipe book is where a dish goes <em>once he recognises it</em>, and until he's tasted something its page stays unnamed: <span class="quiet">something that crackles · something that spreads · something golden</span>. Recipes he knows are plotted on a taste map, sharp to sweet across, light and cool to heavy down, so his palate is something you can actually look at.</p>
-
-      <figure>
-        <img src="/img/recipes.jpg" alt="The Pixal recipe book: a taste map plotting known dishes, above unnamed recipe pages described only by hints." width="603" height="1150" loading="lazy">
-        <figcaption>The recipe book — "where a dish goes once he recognises it".</figcaption>
-      </figure>
-
-      <h3>The garden</h3>
-      <p>Six beds by the front door, sown and tended through the year. Fourteen crops, each with the seasons it will actually take in — peas, broad beans and strawberries in the spring and summer; tomatoes and courgettes in high summer; pumpkins in autumn; leeks, kale and parsnips carrying through the winter; garlic going in before the cold. Every bed moves through five visible stages — sown, sprout, young, budding, ripe — and a ripe bed waits for you rather than spoiling. A frost will take whatever is still in the ground.</p>
+    <section class="chapter strip-chapter">
+      <p class="eyebrow">04 · Where he comes from</p>
+      <h2>Every Pixal starts as a sprout.</h2>
+      <p class="note">Keyframes from the opening cinematic, in development.</p>
+      <div class="strip" tabindex="0" aria-label="Opening cinematic keyframes">
+        <figure><img src="/media/birth-sprout.jpg" alt="A sprout sways in a patch of earth at dawn" loading="lazy"><figcaption>A sprout at dawn</figcaption></figure>
+        <figure><img src="/media/birth-choosing.jpg" alt="Four sprouts — a shoot, a bud, a flower and a curl — in a row of mounds" loading="lazy"><figcaption>You choose yours</figcaption></figure>
+        <figure><img src="/media/birth-pull.jpg" alt="The chosen sprout being pulled from the ground" loading="lazy"><figcaption>A tug</figcaption></figure>
+        <figure><img src="/media/birth-handoff.jpg" alt="Pixal stands in a soft spotlight in the clearing" loading="lazy"><figcaption>And there he is</figcaption></figure>
+      </div>
     </section>
 
-    <section>
-      <h2>Going out</h2>
-      <p>He takes himself off for the day along named routes with real landmarks and a turnaround point, and comes back with what he found. Shorter trips you do together — fishing, foraging, a run — are minutes rather than hours.</p>
-      <p>What's out there depends on when you go. The field book fills with finds that only appear under the right combination of season, sky and hour, so a thing you've never seen may simply be waiting for the right afternoon.</p>
-      <p><strong>And sometimes he doesn't bring home a thing — he brings home a place.</strong> On the beat where he'd normally settle at his destination, there's a chance he keeps going because there's something past it. The odds climb the longer it's been since the last one, so a dry run is never wasted. A place he finds belongs to you both permanently, and it works twice over: somewhere new to spend a whole day, and somewhere you can go together for an afternoon.</p>
-
-      <figure>
-        <img src="/img/outing.jpg" alt="The creature outdoors at dusk under a pink and purple banded sky, with a pine treeline behind." width="603" height="750" loading="lazy">
-        <figcaption>Out at dusk. The sky is assembled for that hour, that season and that weather.</figcaption>
-      </figure>
-
-      <h3>A micropet of your own</h3>
-      <p>Your real step count hatches something. Walk enough and an egg opens into a small creature of its own — which one is down to chance — and it grows as you keep moving.</p>
+    <section class="company" id="company">
+      <div class="company-card">
+        <p class="eyebrow">The company</p>
+        <h2>PIXAL APPS LTD</h2>
+        <p>Pixal is made in London by PIXAL APPS LTD, a private limited company registered in England and Wales. We publish our own apps directly to the App Store. No advertising, and we don’t sell personal information — the <a href="/privacy/">privacy policy</a> sets out exactly what the app collects.</p>
+        <dl>
+          <dt>Registered name</dt><dd>PIXAL APPS LTD</dd>
+          <dt>Company number</dt><dd><a href="https://find-and-update.company-information.service.gov.uk/company/17509772">17509772</a> (Companies House)</dd>
+          <dt>Registered in</dt><dd>England and Wales</dd>
+          <dt>Registered office</dt><dd>128 City Road, London EC1V 2NX, United Kingdom</dd>
+          <dt>Contact</dt><dd><a href="mailto:alex@pixalapps.com">alex@pixalapps.com</a></dd>
+        </dl>
+      </div>
     </section>
-
-    <section class="company">
-      <h2>Pixal Apps Ltd</h2>
-      <p>Pixal is made in London by PIXAL APPS LTD, a private limited company registered in England and Wales. We publish our own apps directly to the App Store. We take no advertising and we don't sell personal information — the <a href="/privacy/">privacy policy</a> sets out exactly what the app collects.</p>
-      <p>Questions, bugs or ideas: <a href="mailto:alex@pixalapps.com">alex@pixalapps.com</a>, or see <a href="/support/">support</a>.</p>
-      <dl class="details">
-        <dt>Registered name</dt><dd>PIXAL APPS LTD</dd>
-        <dt>Registered in</dt><dd>England and Wales</dd>
-        <dt>Company number</dt><dd><a href="https://find-and-update.company-information.service.gov.uk/company/17509772">17509772</a> (Companies House)</dd>
-        <dt>Registered office</dt><dd>128 City Road, London EC1V 2NX, United Kingdom</dd>
-        <dt>Contact</dt><dd><a href="mailto:alex@pixalapps.com">alex@pixalapps.com</a></dd>
-      </dl>
-    </section>
-
-    <footer>
-      <nav>
-        <a href="/support/">Support</a>
-        <a href="/privacy/">Privacy policy</a>
-      </nav>
-      <p>PIXAL APPS LTD · Registered in England and Wales · Company number 17509772<br>
-      128 City Road, London EC1V 2NX, United Kingdom</p>
-    </footer>
   </main>
+
+  <footer class="foot">
+    <nav><a href="/support/">Support</a><a href="/privacy/">Privacy policy</a><a href="mailto:alex@pixalapps.com">Contact</a></nav>
+    <p>PIXAL APPS LTD · Registered in England and Wales · Company number 17509772<br>128 City Road, London EC1V 2NX, United Kingdom</p>
+  </footer>
+
+  <script src="/home.js" defer></script>
 </body>
 </html>
