@@ -3,8 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pixal Apps Ltd</title>
-  <meta name="description" content="Pixal Apps Ltd is a London company that builds apps for iPhone.">
+  <title>Pixal Apps Ltd — independent iPhone apps, made in London</title>
+  <meta name="description" content="Pixal Apps Ltd is an independent software company in London. We make Pixal, a quiet pixel-art game about keeping a small creature company in a cabin that follows real time, weather and seasons.">
+  <meta property="og:title" content="Pixal Apps Ltd">
+  <meta property="og:description" content="An independent software company in London, making Pixal — a quiet pixel-art game for iPhone.">
+  <meta property="og:image" content="https://pixalapps.com/img/outing.jpg">
+  <meta property="og:url" content="https://pixalapps.com/">
+  <meta name="theme-color" content="#ffffff">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -12,10 +17,71 @@
     <header><a href="/">Pixal Apps</a></header>
 
     <h1>We build apps for iPhone.</h1>
-    <p>Pixal Apps Ltd is an independent software company based in London. We design, build and publish mobile apps.</p>
+    <p class="lede">Pixal Apps Ltd is an independent software company based in London. We design, build and publish our own apps — small, carefully made things, built in-house from the engine up.</p>
 
-    <h2>Contact</h2>
-    <p><a href="mailto:alex@pixalapps.com">alex@pixalapps.com</a></p>
+    <section>
+      <h2>Pixal</h2>
+      <p class="muted sub">Our first app — in development</p>
+
+      <p><strong>Pixal is a quiet game about keeping someone company.</strong> You share a cabin with a small creature. There is nothing to win and nothing to lose: it potters about, forms opinions, and gets on with its day whether or not you are watching.</p>
+
+      <figure class="shot-row">
+        <img src="/img/home.png" alt="The Pixal home screen: a pixel-art creature in a wooden cabin at night, with a list of things to do together." width="603" height="1311" loading="lazy">
+        <img src="/img/night.png" alt="The same cabin later at night, lit differently as the in-game clock moves on." width="603" height="1311" loading="lazy">
+        <figcaption>The cabin at two points in the same evening. The light, the sky through the window and what the creature is doing all follow the real clock.</figcaption>
+      </figure>
+
+      <h3>A world that keeps its own time</h3>
+      <p>The world runs on real time. Dawn, day, dusk and night each light the room differently; spring, summer, autumn and winter change what grows and what you'll find outside; and the weather rolls through clear, cloud, rain, wind, fog and snow. None of it is a backdrop image — the sky, the landscape and the trail are generated as you go, keyed to the same palette, and they never repeat.</p>
+
+      <figure>
+        <img src="/img/world.jpg" alt="A generated Pixal landscape: pixel-art sky, distant hills and a dirt trail on a clear summer day." width="1000" height="1098" loading="lazy">
+        <figcaption>A stretch of generated ground and sky. Every column of the world — scrub, dirt, dressing, fringe — is produced as it comes into view.</figcaption>
+      </figure>
+
+      <h3>Things to do together</h3>
+      <ul class="features">
+        <li><strong>Cook, and keep a larder.</strong> Gather what's in season, learn recipes, and put meals together in a working kitchen.</li>
+        <li><strong>Keep a garden.</strong> Beds by the front door, sown and tended through the seasons.</li>
+        <li><strong>Go on outings.</strong> Fishing, foraging and runs along named routes, with a field book of finds that only appear in the right weather.</li>
+        <li><strong>Furnish the place.</strong> Buy, move and arrange furniture — and your creature quietly works out which chair it likes best, and why.</li>
+        <li><strong>Put a record on.</strong> It responds to music you're actually playing.</li>
+        <li><strong>Walk it off.</strong> A micropet hatches from your real step count.</li>
+      </ul>
+
+      <figure>
+        <img src="/img/outing.jpg" alt="The creature outdoors at dusk, under a pink and purple pixel-art sky with a pine treeline behind." width="603" height="750" loading="lazy">
+        <figcaption>Out at dusk. The sky is generated for the hour, the season and the weather it happens to be.</figcaption>
+      </figure>
+
+      <h3>How it's made</h3>
+      <p>Pixal is built with React Native and Expo, with the game itself drawn through Skia — a custom pixel-art renderer written for this app rather than an off-the-shelf game engine. The world, the lighting and the creature's behaviour are all simulated in code we wrote and test ourselves.</p>
+    </section>
+
+    <section>
+      <h2>About the company</h2>
+      <p>PIXAL APPS LTD is a private limited company registered in England and Wales, based in London. It was set up to design, build and publish the company's own software for Apple platforms.</p>
+      <p>We are a small independent studio. We do our own design, engineering and art, and we publish directly to the App Store. We do not take advertising, and we do not sell anyone's personal information — see our <a href="/privacy/">privacy policy</a> for exactly what our apps collect and what they don't.</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>For support, press or anything else: <a href="mailto:alex@pixalapps.com">alex@pixalapps.com</a>. We usually reply within two working days.</p>
+      <p>Help with an app you're using is on the <a href="/support/">support page</a>.</p>
+    </section>
+
+    <section>
+      <h2>Company details</h2>
+      <dl class="details">
+        <dt>Registered name</dt><dd>PIXAL APPS LTD</dd>
+        <dt>Registered in</dt><dd>England and Wales</dd>
+        <!-- PLACEHOLDER FOR ALEX: add the Companies House company number below, then delete this comment.
+             Format: <dt>Company number</dt><dd>12345678</dd>
+             Not filled in automatically because it must not be guessed. -->
+        <dt>Registered office</dt><dd>128 City Road, London EC1V 2NX, United Kingdom</dd>
+        <dt>Contact</dt><dd><a href="mailto:alex@pixalapps.com">alex@pixalapps.com</a></dd>
+      </dl>
+    </section>
 
     <footer>
       <nav>

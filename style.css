@@ -41,3 +41,51 @@ footer {
   font-size: 14px;
 }
 footer nav a { margin-right: 16px; }
+
+/* --- expanded homepage --- */
+h3 { font-size: 17px; margin: 28px 0 8px; }
+section { margin-top: 48px; }
+.lede { font-size: 19px; color: var(--text); }
+.sub { margin-top: -4px; font-size: 15px; }
+
+figure { margin: 28px 0; }
+figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* two phone shots side by side, stacking on narrow screens */
+.shot-row { display: block; }
+.shot-row img { max-width: 300px; margin: 0 auto 12px; }
+@media (min-width: 560px) {
+  .shot-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .shot-row img { max-width: 100%; margin: 0; }
+  .shot-row figcaption { grid-column: 1 / -1; margin-top: 2px; }
+}
+
+ul.features { padding-left: 20px; }
+ul.features li { margin: 10px 0; }
+
+dl.details {
+  margin: 16px 0 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 20px;
+  font-size: 15px;
+}
+dl.details dt { color: var(--muted); }
+dl.details dd { margin: 0; }
+@media (max-width: 420px) {
+  dl.details { grid-template-columns: 1fr; gap: 2px; }
+  dl.details dd { margin-bottom: 10px; }
+}
