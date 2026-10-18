@@ -43,7 +43,10 @@
         <video data-tod="night" muted loop playsinline preload="auto" poster="/media/night.jpg"><source src="/media/night.mp4" type="video/mp4"></video>
       </div>
       <div class="dial">
-        <input id="tod" type="range" min="0" max="400" step="1" value="100" aria-label="Time of day in Pixal">
+        <div class="dial-track">
+          <span class="dial-hint" aria-hidden="true">◀ drag the sun ▶</span>
+          <input id="tod" type="range" min="0" max="300" step="1" value="100" aria-label="Time of day in Pixal: drag to change it">
+        </div>
         <div class="dial-labels" aria-hidden="true"><span>dawn</span><span>day</span><span>dusk</span><span>night</span></div>
       </div>
     </figure>

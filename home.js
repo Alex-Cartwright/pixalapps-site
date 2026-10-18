@@ -169,9 +169,31 @@
     });
   };
   const apply = () => { draw(); showLoops(); describe(); lightHouse(); };
-  dial.max = 300;
-  dial.addEventListener('input', () => { following = false; t = dial.value / 100; apply(); });
-  setInterval(() => { tick++; if (following) t = tOfClock(); if (following) setDial(); apply(); }, reduced ? 30000 : 1500);
+  // The dial says it can be dragged: a label riding the handle and a glow, until it's touched; and once, soon after the
+  // page opens, the sun takes itself round the whole day and back to now so the visitor sees what dragging does.
+  const dialBox = dial.closest('.dial'), hint = dialBox.querySelector('.dial-hint');
+  const placeHint = () => dialBox.style.setProperty('--at', (dial.value / 300).toFixed(3));
+  let touched = false, demoing = false;
+  const touch = () => { if (touched) return; touched = true; demoing = false; dialBox.classList.add('touched'); };
+  dial.addEventListener('pointerdown', touch);
+  dial.addEventListener('keydown', touch);
+  dial.addEventListener('input', () => { touch(); following = false; t = dial.value / 100; placeHint(); apply(); });
+  const demo = () => {
+    if (touched || reduced) return;
+    demoing = true;
+    const from = t, start = performance.now(), length = 5200;
+    const step = (now) => {
+      if (!demoing) return;
+      const f = Math.min(1, (now - start) / length), e = f < 0.5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2;
+      t = (from + 4 * e) % 4;
+      dial.value = Math.round(Math.min(t, 3) * 100); placeHint(); apply();
+      if (f < 1) requestAnimationFrame(step);
+      else { demoing = false; t = following ? tOfClock() : from; setDial(); placeHint(); apply(); }
+    };
+    requestAnimationFrame(step);
+  };
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { o.disconnect(); setTimeout(demo, 1400); } }, { threshold: 0.6 }).observe(dialBox);
+  setInterval(() => { tick++; if (demoing) return; if (following) { t = tOfClock(); setDial(); placeHint(); } apply(); }, reduced ? 30000 : 1500);
 
   // ---------- the bar goes solid once past the hero ----------
   const bar = document.querySelector('.bar');
@@ -265,5 +287,5 @@
   document.querySelectorAll('.chapter:not(.screens) > *, .screens > .eyebrow, .screens > h2, .company-card').forEach((el) => { el.classList.add('reveal'); reveal.observe(el); });
 
   addEventListener('resize', () => { resize(); furnish(); });
-  setDial(); resize(); showLoops(); describe(); lightHouse(); onScroll();
+  setDial(); placeHint(); resize(); showLoops(); describe(); lightHouse(); onScroll();
 })();
