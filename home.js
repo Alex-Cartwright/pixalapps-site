@@ -162,7 +162,10 @@
   const lightHouse = () => {
     const light = t >= 2.5 && t < 3.5 ? 'night' : t >= 0.6 && t < 1.6 ? 'day' : 'dusk';
     if (light === houseLight) return; houseLight = light;
-    houseImgs.forEach((img) => { img.src = `/media/house-${img.classList.contains('full') ? 'home' : 'bare'}-${light}.png`; });
+    houseImgs.forEach((img) => {
+      const layer = img.classList.contains('pet') ? `pet-${img.dataset.room}` : img.classList.contains('full') ? 'home' : 'bare';
+      img.src = `/media/house-${layer}-${light}.png`;
+    });
   };
   const apply = () => { draw(); showLoops(); describe(); lightHouse(); };
   dial.max = 300;
@@ -175,6 +178,7 @@
   // ---------- the home: pinned while the cabin pans past, furnishing itself behind the wipe ----------
   const home = document.getElementById('home'), pano = home.querySelector('.pano'), track = home.querySelector('.pano-track');
   const rooms = [...home.querySelectorAll('.rooms li')];
+  const pets = [...home.querySelectorAll('.pano-track .pet')];   // one Pixal per room, in the rooms' order
   const ease = (x) => x * x * (3 - 2 * x);
   const furnish = () => {
     const r = home.getBoundingClientRect(), total = home.offsetHeight - innerHeight;
@@ -182,41 +186,55 @@
     const trackW = track.offsetWidth, viewW = pano.clientWidth, maxShift = Math.max(0, trackW - viewW);
     const pan = ease(Math.min(1, p / 0.88));
     const shift = maxShift * pan;
-    const lead = viewW * 0.62 * Math.min(1, p / 0.06);
-    const reveal = p >= 0.92 ? 1 : Math.min(1, (shift + lead) / trackW);
+    // The wipe leads from 62% of the view to its right edge as the pan ends, so the last room fills in smoothly.
+    const lead = viewW * (0.62 + 0.38 * ease(Math.min(1, Math.max(0, (p - 0.55) / 0.33)))) * Math.min(1, p / 0.06);
+    const reveal = Math.min(1, (shift + lead) / trackW);
     track.style.transform = `translateX(${-shift}px)`;
     track.style.setProperty('--reveal', `${(reveal * 100).toFixed(2)}%`);
-    track.style.setProperty('--wipe-on', reveal > 0.002 && reveal < 1 ? 1 : 0);
+    track.style.setProperty('--wipe-on', reveal > 0.002 && reveal < 0.999 ? 1 : 0);
     let now = 0;
     rooms.forEach((li, k) => { const on = reveal >= Number(li.dataset.at) && (k > 0 || reveal > 0.01); li.classList.toggle('on', on); if (on) now = k; });
     rooms.forEach((li, k) => li.classList.toggle('now', k === now));
+    pets.forEach((img, k) => img.classList.toggle('on', k === now && reveal > 0.01));
   };
   const onScroll = () => { bar.classList.toggle('solid', scrollY > innerHeight * 0.75); furnish(); };
   addEventListener('scroll', onScroll, { passive: true });
 
-  // ---------- the cooking story ----------
-  const frames = [...document.querySelectorAll('.stage-frame img')];
-  const ticks = [...document.querySelectorAll('.ticks li')];
-  const steps = [...document.querySelectorAll('.step')];
-  const sparks = document.querySelector('.sparks');
-  let shown = 0;
-  const show = (n) => {
-    if (n === shown) return; shown = n;
-    frames.forEach((f, k) => f.classList.toggle('on', k === n));
-    ticks.forEach((x, k) => x.classList.toggle('on', k <= n));
-    steps.forEach((s, k) => s.classList.toggle('on', k === n));
-    if (n === 3 && !reduced) for (let k = 0; k < 18; k++) {
-      const i = document.createElement('i');
-      i.style.left = `${30 + Math.random() * 40}%`; i.style.top = `${48 + Math.random() * 18}%`;
-      i.style.setProperty('--dx', `${(Math.random() - 0.5) * 120}px`); i.style.animationDelay = `${Math.random() * 0.4}s`;
-      sparks.appendChild(i); setTimeout(() => i.remove(), 2200);
+  // ---------- meet Pixal: he cycles through what he gets up to ----------
+  const poses = [...document.querySelectorAll('.pal-stage img')], say = document.querySelector('.pal-say');
+  let pose = 0;
+  if (!reduced) setInterval(() => {
+    poses[pose].classList.remove('on'); pose = (pose + 1) % poses.length; poses[pose].classList.add('on');
+    say.textContent = poses[pose].dataset.say;
+  }, 1800);
+
+  // ---------- things you do together: the carousel ----------
+  const carousel = document.querySelector('.carousel'), slides = [...carousel.querySelectorAll('.slide')];
+  const dots = [...document.querySelectorAll('.dots li')];
+  let current = 0;
+  const goTo = (n) => { const k = (n + slides.length) % slides.length; carousel.scrollTo({ left: slides[k].offsetLeft - (carousel.clientWidth - slides[k].clientWidth) / 2, behavior: reduced ? 'auto' : 'smooth' }); };
+  document.querySelector('.carousel-nav .prev').addEventListener('click', () => goTo(current - 1));
+  document.querySelector('.carousel-nav .next').addEventListener('click', () => goTo(current + 1));
+  carousel.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') goTo(current + 1); if (e.key === 'ArrowLeft') goTo(current - 1); });
+  const slideSeen = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      const v = e.target.querySelector('video');
+      if (v && e.isIntersecting && !v.src) v.src = v.dataset.src;
+      if (v) { if (e.isIntersecting && !reduced) v.play().catch(() => {}); else v.pause(); }
+      if (e.intersectionRatio > 0.6) { current = slides.indexOf(e.target); dots.forEach((d, k) => d.classList.toggle('on', k === current)); }
     }
-  };
-  steps[0].classList.add('on');
-  const stepObserver = new IntersectionObserver((entries) => {
-    for (const e of entries) if (e.isIntersecting) show(Number(e.target.dataset.step));
-  }, { rootMargin: '-45% 0px -45% 0px' });
-  steps.forEach((s) => stepObserver.observe(s));
+  }, { root: carousel, threshold: [0, 0.6] });
+  slides.forEach((sl) => slideSeen.observe(sl));
+  // The cooking slide plays its four beats while it's in view.
+  const cook = document.querySelector('.cook-flow'), cookFrames = [...cook.querySelectorAll('img')], cookBeats = [...cook.querySelectorAll('.beats li')];
+  let beat = 0, cookVisible = false;
+  new IntersectionObserver(([e]) => { cookVisible = e.isIntersecting; }).observe(cook);
+  if (!reduced) setInterval(() => {
+    if (!cookVisible) return;
+    beat = (beat + 1) % cookFrames.length;
+    cookFrames.forEach((f, k) => f.classList.toggle('on', k === beat));
+    cookBeats.forEach((x, k) => x.classList.toggle('on', k === beat));
+  }, 1700);
 
   // ---------- chapters ease in as they arrive ----------
   const reveal = new IntersectionObserver((entries) => {
