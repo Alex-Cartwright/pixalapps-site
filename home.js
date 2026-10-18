@@ -148,7 +148,7 @@
   new IntersectionObserver(([e]) => (e.isIntersecting ? playAll() : pauseAll())).observe(document.querySelector('.frame'));
 
   // ---------- the dial and the clock ----------
-  const dial = document.getElementById('tod'), now = document.getElementById('now'), clock = document.getElementById('clock');
+  const dial = document.getElementById('tod'), clock = document.getElementById('clock');
   const setDial = () => { dial.value = Math.round(Math.min(t, 3) * 100); };
   const describe = () => {
     const d = new Date();
@@ -169,8 +169,7 @@
   };
   const apply = () => { draw(); showLoops(); describe(); lightHouse(); };
   dial.max = 300;
-  dial.addEventListener('input', () => { following = false; now.hidden = false; t = dial.value / 100; apply(); });
-  now.addEventListener('click', () => { following = true; now.hidden = true; t = tOfClock(); setDial(); apply(); });
+  dial.addEventListener('input', () => { following = false; t = dial.value / 100; apply(); });
   setInterval(() => { tick++; if (following) t = tOfClock(); if (following) setDial(); apply(); }, reduced ? 30000 : 1500);
 
   // ---------- the bar goes solid once past the hero ----------
@@ -243,6 +242,5 @@
   document.querySelectorAll('.chapter > *, .card, .company-card, .strip figure').forEach((el) => { el.classList.add('reveal'); reveal.observe(el); });
 
   addEventListener('resize', () => { resize(); furnish(); });
-  if (!following) now.hidden = false;
   setDial(); resize(); showLoops(); describe(); lightHouse(); onScroll();
 })();

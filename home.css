@@ -26,7 +26,7 @@ a { color: inherit; }
 #sky { position: fixed; inset: 0; width: 100vw; height: 100lvh; image-rendering: pixelated; z-index: -1; }
 
 /* A pixel border: hard steps, no radius. */
-.px-border, .frame, .card, .company-card, .slide-pic, .strip figure, .badge, #now, .carousel-nav button {
+.px-border, .frame, .card, .company-card, .slide-pic, .strip figure, .badge, .carousel-nav button {
   box-shadow:
     0 calc(-1 * var(--px)) 0 0 currentColor, 0 var(--px) 0 0 currentColor,
     calc(-1 * var(--px)) 0 0 0 currentColor, var(--px) 0 0 0 currentColor;
@@ -71,8 +71,6 @@ a { color: inherit; }
 .dial input::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; margin-top: -10px; border: 0; background: var(--thumb, #f2b544); box-shadow: 0 0 0 4px #2a1f1a, 4px 4px 0 4px rgba(0,0,0,.25); }
 .dial input::-moz-range-thumb { width: 28px; height: 28px; border: 0; border-radius: 0; background: var(--thumb, #f2b544); box-shadow: 0 0 0 4px #2a1f1a; }
 .dial-labels { display: flex; justify-content: space-between; font-family: Silkscreen, monospace; font-size: 10px; letter-spacing: 1px; margin-top: 8px; color: var(--ink-soft); }
-#now { margin-top: 14px; font: 11px Silkscreen, monospace; letter-spacing: 1px; color: var(--ink); background: transparent; border: 0; padding: 8px 12px; cursor: pointer; }
-.window figcaption { margin-top: 14px; font-size: 20px; color: var(--ink-soft); }
 
 /* ---------- chapters on paper ---------- */
 main { background: var(--paper); position: relative; }
