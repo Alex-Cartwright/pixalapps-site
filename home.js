@@ -202,11 +202,23 @@
 
   // ---------- meet Pixal: he cycles through what he gets up to ----------
   const poses = [...document.querySelectorAll('.pal-stage img')], say = document.querySelector('.pal-say');
-  let pose = 0;
-  if (!reduced) setInterval(() => {
-    poses[pose].classList.remove('on'); pose = (pose + 1) % poses.length; poses[pose].classList.add('on');
-    say.textContent = poses[pose].dataset.say;
-  }, 1800);
+  let pose = 0, heldUntil = 0;
+  const show = (k, words) => { poses[pose].classList.remove('on'); pose = k; poses[pose].classList.add('on'); say.textContent = words ?? poses[pose].dataset.say; };
+  if (!reduced) setInterval(() => { if (Date.now() > heldUntil) show((pose + 1) % poses.length); }, 1800);
+  // Tap him and he reacts: a hop, a few hearts, something to say.
+  const stage = document.querySelector('.pal-stage'), hearts = stage.querySelector('.hearts');
+  const LINES = ['hello!', 'that tickles!', 'oh! hi!', 'again! again!', 'hehe', 'you found me', 'i was just thinking about lunch'];
+  let line = 0;
+  stage.addEventListener('click', () => {
+    heldUntil = Date.now() + 2600;
+    show(poses.length - 1, LINES[line++ % LINES.length]);
+    stage.classList.remove('hop'); void stage.offsetWidth; stage.classList.add('hop');
+    if (!reduced) for (let k = 0; k < 4; k++) {
+      const h = document.createElement('i'); h.textContent = '♥';
+      h.style.left = `${30 + Math.random() * 40}%`; h.style.setProperty('--dx', `${(Math.random() - 0.5) * 60}px`); h.style.animationDelay = `${k * 0.08}s`;
+      hearts.appendChild(h); setTimeout(() => h.remove(), 1500);
+    }
+  });
 
   // ---------- things you do together: the carousel ----------
   const carousel = document.querySelector('.carousel'), slides = [...carousel.querySelectorAll('.slide')];
@@ -237,14 +249,20 @@
   }, 1700);
 
   // ---------- the screens fan out when they arrive ----------
+  // The screens are decoded before they move, so the fan never stalls on a half-loaded picture.
   const fan = document.querySelector('.fan');
-  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { fan.classList.add('open'); o.disconnect(); } }, { rootMargin: '0px 0px -25% 0px' }).observe(fan);
+  const screensReady = Promise.all([...fan.querySelectorAll('img')].map((img) => img.decode().catch(() => {})));
+  new IntersectionObserver(([e], o) => {
+    if (!e.isIntersecting) return;
+    o.disconnect();
+    screensReady.then(() => requestAnimationFrame(() => fan.classList.add('open')));
+  }, { rootMargin: '0px 0px -20% 0px' }).observe(fan);
 
   // ---------- chapters ease in as they arrive ----------
   const reveal = new IntersectionObserver((entries) => {
     for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); }
   }, { rootMargin: '0px 0px -10% 0px' });
-  document.querySelectorAll('.chapter:not(.screens) > *, .screens > .eyebrow, .screens > h2, .wide-shot, .company-card, .strip figure').forEach((el) => { el.classList.add('reveal'); reveal.observe(el); });
+  document.querySelectorAll('.chapter:not(.screens) > *, .screens > .eyebrow, .screens > h2, .company-card').forEach((el) => { el.classList.add('reveal'); reveal.observe(el); });
 
   addEventListener('resize', () => { resize(); furnish(); });
   setDial(); resize(); showLoops(); describe(); lightHouse(); onScroll();
